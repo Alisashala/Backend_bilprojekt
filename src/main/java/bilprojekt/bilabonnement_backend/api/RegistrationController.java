@@ -60,7 +60,7 @@ public class RegistrationController {
         Optional<Registration> existingAgreement = repository.findById(id);
         if (existingAgreement.isPresent()) {
             Registration updatedAgreement = existingAgreement.get();
-            updatedAgreement.setEmail(registrationDetails.getEmail());
+            //updatedAgreement.setEmail(registrationDetails.getEmail());
             return ResponseEntity.ok(repository.save(updatedAgreement));
         } else {
             return ResponseEntity.notFound().build();
