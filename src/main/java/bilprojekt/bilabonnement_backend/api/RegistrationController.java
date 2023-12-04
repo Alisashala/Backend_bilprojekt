@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@CrossOrigin("*")
 @RequestMapping
+@RestController
 public class RegistrationController {
 
     private RegistrationRepository repository;
@@ -19,7 +18,7 @@ public class RegistrationController {
     public RegistrationController(RegistrationRepository repository) {
         this.repository = repository;
     }
-
+/*
         @GetMapping("/api")
         public String apiDocumentation() {
             return "Registration API Endpoints:" +
@@ -30,6 +29,8 @@ public class RegistrationController {
                     "\n- DELETE /api/agreements/{id}: slet en lejeaftale";
 
     }
+
+ */
 
     //GET: Hent alle lejeaftaler
     @GetMapping("/api/agreements")

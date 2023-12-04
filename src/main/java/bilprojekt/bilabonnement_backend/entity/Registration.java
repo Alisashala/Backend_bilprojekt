@@ -13,15 +13,16 @@ public class Registration {
 
     private String cpr;
 
-    private String Email;
+    private String email;
 
-public Registration() {
+    public Registration() {
+        // Default constructor
+    }
 
-}
     public Registration(Long id, String cpr, String email) {
         this.id = id;
         this.cpr = cpr;
-        Email = email;
+        this.email = email;
     }
 
     public void setId(Long id) {
@@ -33,7 +34,7 @@ public Registration() {
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public Long getId() {
@@ -45,6 +46,6 @@ public Registration() {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 }

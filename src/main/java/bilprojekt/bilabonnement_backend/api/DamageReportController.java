@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@RequestMapping
 @RestController
-@CrossOrigin("*")
+
+
 public class DamageReportController {
 
     private DamageReportRepository repository;
@@ -18,7 +20,7 @@ public class DamageReportController {
     public DamageReportController(DamageReportRepository repository) {
         this.repository = repository;
     }
-
+/*
     @GetMapping("/api")
     public String apiDocumentation() {
         return "DamageReport API Endpoints:" +
@@ -28,6 +30,8 @@ public class DamageReportController {
                 "\n- PUT /api/damagereports/{id}: Opdater en eksisterende skaderapport" +
                 "\n- DELETE /api/damagereports/{id}: Slet en skaderapport";
     }
+
+ */
 
     //GET: Hent alle skaderapporter
     @GetMapping("/api/damagereports")
@@ -57,9 +61,10 @@ public class DamageReportController {
     public ResponseEntity<DamageReport> updateReport(@PathVariable Long id, @RequestBody DamageReport reportDetails) {
         Optional<DamageReport> existingDamageReport = repository.findById(id);
         if (existingDamageReport.isPresent()) {
-            DamageReport updatedMovie = existingDamageReport.get();
-            //updatedDamageReport.setDamage(reportDetails.getDamage());
-            return ResponseEntity.ok(repository.save(updatedMovie));
+            DamageReport updatedDamageReport = existingDamageReport.get();
+            // Uncomment and modify the code to update specific fields
+            // updatedDamageReport.setDamage(reportDetails.getDamage());
+            return ResponseEntity.ok(repository.save(updatedDamageReport));
         } else {
             return ResponseEntity.notFound().build();
         }
