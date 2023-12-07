@@ -1,4 +1,7 @@
 package bilprojekt.bilabonnement_backend.repository;
 
-public interface CustomerRepository {
+import bilprojekt.bilabonnement_backend.entity.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 }

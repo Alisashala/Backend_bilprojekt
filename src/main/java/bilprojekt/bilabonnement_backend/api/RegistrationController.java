@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RequestMapping
 @RestController
+@CrossOrigin("*")
 public class RegistrationController {
 
     private RegistrationRepository repository;

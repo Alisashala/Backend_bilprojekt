@@ -1,39 +1,69 @@
 package bilprojekt.bilabonnement_backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class DamageReport {
+
+    @OneToMany(mappedBy = "damageReport")
+    private List<Registration> registrations;
+
+
+    @Column(name = "id", nullable = false, length = 10)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long damageReport;
 
+    @Column(name = "brand", nullable = false, length = 50)
+    private String brand;
+
+    @Column(name = "model", nullable = false, length = 50)
+    private String model;
+
+    @Column(name = "damage_type", nullable = false, length = 100)
     private String damageType;
-    private String description;
-    // You can add more fields as needed
 
-    // Constructors, getters, and setters
+    @Column(name = "damage_description", nullable = false, length = 200)
+    private String damageDescription;
+
+    @Column(name = "damage_level", nullable = false, length = 50)
+    private String damageLevel;
 
     public DamageReport() {
         // Default constructor
     }
 
-    public DamageReport(String damageType, String description) {
-        this.damageType = damageType;
-        this.description = description;
+    public List<Registration> getRegistrations() {
+        return registrations;
     }
 
-    // Getters and setters for other fields
+    public void setRegistrations(List<Registration> registrations) {
+        this.registrations = registrations;
+    }
 
     public Long getId() {
-        return id;
+        return damageReport;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.damageReport = damageReport;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public String getDamageType() {
@@ -44,11 +74,29 @@ public class DamageReport {
         this.damageType = damageType;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDamageDescription() {
+        return damageDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDamageDescription(String damageDescription) {
+        this.damageDescription = damageDescription;
+    }
+
+    public String getDamageLevel() {
+        return damageLevel;
+    }
+
+    public void setDamageLevel(String damageLevel) {
+        this.damageLevel = damageLevel;
+    }
+
+    public DamageReport(List<Registration> registrations, Long damageReport, String brand, String model, String damageType, String damageDescription, String damageLevel) {
+        this.registrations = registrations;
+        this.damageReport = damageReport;
+        this.brand = brand;
+        this.model = model;
+        this.damageType = damageType;
+        this.damageDescription = damageDescription;
+        this.damageLevel = damageLevel;
     }
 }

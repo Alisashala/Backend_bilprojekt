@@ -1,12 +1,12 @@
-
 package bilprojekt.bilabonnement_backend.entity;
 
+import bilprojekt.bilabonnement_backend.entity.Customer;
+import bilprojekt.bilabonnement_backend.entity.DamageReport;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 public class Registration {
@@ -15,7 +15,9 @@ public class Registration {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
+
     @ManyToOne
     private DamageReport damageReport;
 
@@ -25,6 +27,7 @@ public class Registration {
     @UpdateTimestamp
     private LocalDateTime lastEdited;
 
+    // Corrected method name
     public Long getId() {
         return id;
     }
@@ -37,19 +40,16 @@ public class Registration {
         return customer;
     }
 
-    public void setCustomer(Customer member) {
-        this.customer = member;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
+    // Corrected method name
     public DamageReport getDamageReport() {
         return damageReport;
     }
 
-    public void setCar(DamageReport damageReport) {
-        this.damageReport = damageReport;
-    }
-
-
+    // Corrected method name
     public void setDamageReport(DamageReport damageReport) {
         this.damageReport = damageReport;
     }
@@ -81,4 +81,3 @@ public class Registration {
         this.lastEdited = lastEdited;
     }
 }
-

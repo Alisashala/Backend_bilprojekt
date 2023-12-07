@@ -2,19 +2,16 @@ package bilprojekt.bilabonnement_backend.entity;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 public class Customer {
 
-
-    @OneToMany(mappedBy = "customer")
-    private List<Registration> registrations;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, length = 10)
+    private Long id;
 
     @Column(name = "cpr", nullable = false, length = 10)
-    @Id
-    private Long cpr;
+    private int cpr;
 
     @Column(name = "full_name", nullable = false, length = 50)
     private String fullName;
@@ -25,29 +22,35 @@ public class Customer {
     @Column(name = "region", nullable = false, length = 50)
     private String region;
 
+    // Constructors
 
-    public List<Registration> getRegistrations() {
-        return registrations;
+    // Default constructor
+    public Customer() {
     }
 
-    public void setRegistrations(List<Registration> registrations) {
-        this.registrations = registrations;
+    // Constructor with fields (excluding ID)
+    public Customer(String fullName, String email, String region, int cpr) {
+        this.fullName = fullName;
+        this.email = email;
+        this.region = region;
+        this.cpr = cpr;
+    }
+    // Getters and setters
+
+    public Long getId() {
+        return id;
     }
 
-    public Long getCpr() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getCpr() {
         return cpr;
     }
 
-    public void setCpr(Long cpr) {
+    public void setCpr(int cpr) {
         this.cpr = cpr;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFullName() {
@@ -58,22 +61,19 @@ public class Customer {
         this.fullName = fullName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getRegion() {
         return region;
     }
 
     public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public Customer() {
-    }
-
-    public Customer(List<Registration> registrations, Long cpr, String fullName, String email, String region) {
-        this.registrations = registrations;
-        this.cpr = cpr;
-        this.fullName = fullName;
-        this.email = email;
         this.region = region;
     }
 }
