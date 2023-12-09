@@ -2,6 +2,8 @@ package bilprojekt.bilabonnement_backend.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Customer {
 
@@ -22,20 +24,40 @@ public class Customer {
     @Column(name = "region", nullable = false, length = 50)
     private String region;
 
+    @Column(name = "price", nullable = false)
+    private int price;
+
+    @Column(name = "brand", nullable = false)
+    private String brand;
+
+    @Column(name = "model", nullable = false)
+    private String model;
+
+    @Column(name = "Braendstof", nullable = false)
+    private String braendstof;
+
+    @Column(name = "Km/l", nullable = false)
+    private double kml;
+
+
     // Constructors
 
-    // Default constructor
-    public Customer() {
-    }
-
-    // Constructor with fields (excluding ID)
-    public Customer(String fullName, String email, String region, int cpr) {
+    public Customer(int cpr, String fullName, String email, String region, int price, String brand, String model, String braendstof, double kml) {
+        this.cpr = cpr;
         this.fullName = fullName;
         this.email = email;
         this.region = region;
-        this.cpr = cpr;
+        this.price = price;
+        this.brand = brand;
+        this.model = model;
+        this.braendstof = braendstof;
+        this.kml = kml;
     }
-    // Getters and setters
+
+    public Customer() {
+
+    }
+
 
     public Long getId() {
         return id;
@@ -75,5 +97,45 @@ public class Customer {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getBraendstof() {
+        return braendstof;
+    }
+
+    public void setBraendstof(String braendstof) {
+        this.braendstof = braendstof;
+    }
+
+    public double getKml() {
+        return kml;
+    }
+
+    public void setKml(double kml) {
+        this.kml = kml;
     }
 }

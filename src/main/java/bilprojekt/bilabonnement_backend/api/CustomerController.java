@@ -1,6 +1,7 @@
 package bilprojekt.bilabonnement_backend.api;
 
 import bilprojekt.bilabonnement_backend.entity.Customer;
+import bilprojekt.bilabonnement_backend.entity.Registration;
 import bilprojekt.bilabonnement_backend.repository.CustomerRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,7 @@ public class CustomerController {
     }
 
 
+
     @PutMapping("/api/customers/{id}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customerDetails) {
         Optional<Customer> existingCustomer = repository.findById(id);
@@ -49,6 +51,11 @@ public class CustomerController {
             updatedCustomer.setEmail(customerDetails.getEmail());
             updatedCustomer.setFullName(customerDetails.getFullName());
             updatedCustomer.setRegion(customerDetails.getRegion());
+            updatedCustomer.setPrice(customerDetails.getPrice());
+            updatedCustomer.setKml(customerDetails.getKml());
+            updatedCustomer.setBraendstof(customerDetails.getBraendstof());
+            updatedCustomer.setModel(customerDetails.getModel());
+            updatedCustomer.setBrand(updatedCustomer.getBrand());
             return ResponseEntity.ok(repository.save(updatedCustomer));
         } else {
             return ResponseEntity.notFound().build();

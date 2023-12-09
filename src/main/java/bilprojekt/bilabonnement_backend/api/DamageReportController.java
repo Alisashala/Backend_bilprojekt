@@ -1,5 +1,6 @@
 package bilprojekt.bilabonnement_backend.api;
 
+import bilprojekt.bilabonnement_backend.entity.Customer;
 import bilprojekt.bilabonnement_backend.entity.DamageReport;
 import bilprojekt.bilabonnement_backend.repository.DamageReportRepository;
 import org.springframework.http.ResponseEntity;
@@ -8,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@RequestMapping
 @RestController
-@RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin("*")
 public class DamageReportController {
 
     private final DamageReportRepository repository;
@@ -19,34 +20,40 @@ public class DamageReportController {
         this.repository = repository;
     }
 
-    @GetMapping("/damagereports")
+    @GetMapping("/api/damagereports")
     public List<DamageReport> getAllDamageReports() {
         return repository.findAll();
     }
 
-    @GetMapping("/damagereports/{id}")
+    @GetMapping("/api/damagereports/{id}")
     public ResponseEntity<DamageReport> getDamageReportById(@PathVariable Long id) {
         Optional<DamageReport> damageReport = repository.findById(id);
         return damageReport.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/damagereports")
+    @PostMapping("/api/damagereports")
     public DamageReport createDamageReport(@RequestBody DamageReport damageReport) {
         return repository.save(damageReport);
     }
 
-    @PutMapping("/damagereports/{id}")
+    @PutMapping("/api/damagereports/{id}")
     public ResponseEntity<DamageReport> updateReport(@PathVariable Long id, @RequestBody DamageReport reportDetails) {
-        return repository.findById(id)
-                .map(existingDamageReport -> {
-                    // Uncomment and modify the code to update specific fields
-                    // existingDamageReport.setDamage(reportDetails.getDamage());
-                    return ResponseEntity.ok(repository.save(existingDamageReport));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<DamageReport> existingDamageReport = repository.findById(id);
+        if (existingDamageReport.isPresent()) {
+            DamageReport updatedDamageReport = existingDamageReport.get();
+            updatedDamageReport.setDamageLevel(reportDetails.getDamageLevel());
+            updatedDamageReport.setDamageType(reportDetails.getDamageType());
+            updatedDamageReport.setDamageDescription(reportDetails.getDamageDescription());
+            updatedDamageReport.setModel(reportDetails.getModel());
+            updatedDamageReport.setBrand(reportDetails.getBrand());
+            updatedDamageReport.setDamageCost(reportDetails.getDamageCost());
+            return ResponseEntity.ok(repository.save(updatedDamageReport));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @DeleteMapping("/damagereports/{id}")
+    @DeleteMapping("/api/damagereports/{id}")
     public ResponseEntity<?> deleteDamageReport(@PathVariable Long id) {
         return repository.findById(id)
                 .map(existingDamageReport -> {

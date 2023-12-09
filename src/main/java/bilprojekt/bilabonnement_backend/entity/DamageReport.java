@@ -1,19 +1,14 @@
 package bilprojekt.bilabonnement_backend.entity;
-
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 public class DamageReport {
 
-    @OneToMany(mappedBy = "damageReport")
-    private List<Registration> registrations;
 
-
-    @Column(name = "id", nullable = false, length = 10)
     @Id
-    private Long damageReport;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, length = 10)
+    private Long id;
 
     @Column(name = "brand", nullable = false, length = 50)
     private String brand;
@@ -30,24 +25,22 @@ public class DamageReport {
     @Column(name = "damage_level", nullable = false, length = 50)
     private String damageLevel;
 
+    @Column(name = "damage_cost", nullable = false)
+    private double damageCost;
+
+
     public DamageReport() {
         // Default constructor
     }
 
-    public List<Registration> getRegistrations() {
-        return registrations;
-    }
 
-    public void setRegistrations(List<Registration> registrations) {
-        this.registrations = registrations;
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getId() {
-        return damageReport;
-    }
-
-    public void setId(Long id) {
-        this.damageReport = damageReport;
+        return id;
     }
 
     public String getBrand() {
@@ -56,6 +49,14 @@ public class DamageReport {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public double getDamageCost() {
+        return damageCost;
+    }
+
+    public void setDamageCost(double damageCost) {
+        this.damageCost = damageCost;
     }
 
     public String getModel() {
@@ -90,9 +91,8 @@ public class DamageReport {
         this.damageLevel = damageLevel;
     }
 
-    public DamageReport(List<Registration> registrations, Long damageReport, String brand, String model, String damageType, String damageDescription, String damageLevel) {
-        this.registrations = registrations;
-        this.damageReport = damageReport;
+    public DamageReport(double damageCost, String brand, String model, String damageType, String damageDescription, String damageLevel) {
+        this.damageCost = damageCost;
         this.brand = brand;
         this.model = model;
         this.damageType = damageType;

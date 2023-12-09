@@ -19,6 +19,7 @@ public class Registration {
     private Customer customer;
 
     @ManyToOne
+    @JoinColumn(name = "damage_report_id", nullable = false)
     private DamageReport damageReport;
 
     @CreationTimestamp
