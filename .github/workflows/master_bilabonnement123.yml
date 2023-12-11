@@ -19,7 +19,7 @@ jobs:
       - name: Set up Java version
         uses: actions/setup-java@v2  # Updated to version 2
         with:
-          java-version: '17'
+          java-version: '11'  # Reverted back to Java 11
 
       - name: Build with Maven
         run: mvn clean install
