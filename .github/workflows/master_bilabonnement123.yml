@@ -18,10 +18,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: '17'
-
+          
       - name: Build with Maven (without tests)
         run: mvn clean install -DskipTests
-        working-directory: Backend_bilprojekt/bilabonnement_backend
+        working-directory: Backend_bilprojekt/bilabonnement_backend/
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
