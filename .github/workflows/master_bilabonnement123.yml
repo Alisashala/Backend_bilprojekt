@@ -21,14 +21,14 @@ jobs:
           
       - name: Build with Maven (without tests)
         run: mvn clean install -DskipTests
-        working-directory: Backend_bilprojekt/bilabonnement_backend/
+        working-directory: ${{ github.workspace }}/bilabonnement_backend/target
 
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: Backend_bilprojekt/bilabonnement_backend/target/*.jar
+          path: ${{ github.workspace }}/bilabonnement_backend/target
 
   deploy:
     runs-on: windows-latest
@@ -42,7 +42,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: java-app
-          path: Backend_bilprojekt/bilabonnement_backend/target
+          path: ${{ github.workspace }}/bilabonnement_backend/target
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -51,4 +51,4 @@ jobs:
           app-name: 'bilabonnement123'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B396355EC6E241539B331BE80BC05B04 }}
-          package: '*.jar'
+          package: ${{ github.workspace }}/bilabonnement_backend/target/*.jar
