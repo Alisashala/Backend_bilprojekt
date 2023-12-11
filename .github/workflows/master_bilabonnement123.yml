@@ -20,7 +20,7 @@ jobs:
           java-version: '17'
 
       - name: Build with Maven (without tests)
-        run: mvn -f bilabonnement/pom.xml clean install -DskipTests
+        run: mvn -f bilabonnement123/pom.xml clean install -DskipTests
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
