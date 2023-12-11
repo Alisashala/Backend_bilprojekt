@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: Backend_bilprojekt/bilabonnement_backend/target/*.jar  # Adjust the path
+          path: Backend_bilprojekt/bilabonnement_backend/target/*.jar
 
   deploy:
     runs-on: windows-latest
@@ -41,11 +41,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: java-app
-          path: Backend_bilprojekt/bilabonnement_backend/target  # Adjust the path
+          path: Backend_bilprojekt/bilabonnement_backend/target
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'bilabonnement123'
-          slot-name: 
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B396355EC6E241539B331BE80BC05B04 }}
+          package: '*.jar'
