@@ -21,8 +21,7 @@ jobs:
           
       - name: Build with Maven (without tests)
         run: mvn clean install -DskipTests
-        working-directory: ${{ github.workspace }}/bilabonnement_backend/target
-
+        working-directory: ${{ github.workspace }}/bilabonnement_backend
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
