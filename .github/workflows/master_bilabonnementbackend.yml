@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: https://github.com/Alisashala/Backend_bilprojekt/blob/c428b606a87eb40b3f550a1720c681e834c0bb16/pom.xml
 
   deploy:
     runs-on: windows-latest
