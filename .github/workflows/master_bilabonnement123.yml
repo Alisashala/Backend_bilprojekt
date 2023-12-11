@@ -8,28 +8,28 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Java version
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v1
         with:
           java-version: '17'
 
       - name: Build with Maven (without tests)
-        run: mvn -f bilabonnement123/pom.xml clean install -DskipTests
+        run: mvn -f bilabonnement_backend/pom.xml clean install -DskipTests
 
       - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: java-app
-          path: '${{ github.workspace }}/target/*.jar'
+          path: '${{ github.workspace }}/bilabonnement_backend/target
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     environment:
       name: 'Production'
@@ -37,10 +37,11 @@ jobs:
 
     steps:
       - name: Download artifact from build job
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: java-app
-
+          path: ${{ github.workspace }}/bilabonnement_backend/target
+          
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
@@ -48,4 +49,4 @@ jobs:
           app-name: 'bilabonnement123'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B396355EC6E241539B331BE80BC05B04 }}
-          package: '*.jar'
+          package: ${{ github.workspace }}/bilabonnement_backend/target/*.jar
