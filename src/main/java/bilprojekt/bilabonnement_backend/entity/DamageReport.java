@@ -1,15 +1,17 @@
 package bilprojekt.bilabonnement_backend.entity;
 import jakarta.persistence.*;
 
+//Entity: Dette bruges til at angive, at klassen er en JPA-entity, hvilket betyder, at den repræsenterer en tabel i en database.
 @Entity
 public class DamageReport {
 
-
+    //ID: Unik identifikation til hver skade rapport (primary key) genereret af databasen
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, length = 10)
     private Long id;
 
+    //Coluumn: Dette bruges til at specificere egenskaber for en kolonne i databasen, der mapper til et felt i klassen.
     @Column(name = "brand", nullable = false, length = 50)
     private String brand;
 
@@ -33,7 +35,7 @@ public class DamageReport {
         // Default constructor
     }
 
-
+    //Getters & Setters
 
     public void setId(Long id) {
         this.id = id;
@@ -91,6 +93,7 @@ public class DamageReport {
         this.damageLevel = damageLevel;
     }
 
+    //Constructor
     public DamageReport(double damageCost, String brand, String model, String damageType, String damageDescription, String damageLevel) {
         this.damageCost = damageCost;
         this.brand = brand;

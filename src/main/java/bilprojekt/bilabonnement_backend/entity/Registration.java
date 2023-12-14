@@ -8,12 +8,19 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+//Entity: Dette bruges til at angive, at klassen er en JPA-entity, hvilket betyder, at den repræsenterer en tabel i en database.
 @Entity
 public class Registration {
+
+
+    //ID: Unik identifikation til hver skade rapport (primary key) genereret af databasen
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    //@ManyToOne: Dette angiver, at der er en many-to-one-relation mellem den Registration tabel og målentiteten (Customer og DamageReport).
+    //@JoinColumn: Denne annotation bruges til at specificere, hvilken kolonne der skal bruges som join-kolonnen i databasen.
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
@@ -22,13 +29,19 @@ public class Registration {
     @JoinColumn(name = "damage_report_id", nullable = false)
     private DamageReport damageReport;
 
+
+    //@CreationTimeStamp: er en del af Hibernate og bruges til automatisk at indstille feltet created til tidspunktet for oprettelsen af en ny række i databasen.
     @CreationTimestamp
     private LocalDateTime created;
 
+    //Ligesom @CreationTimestamp, men det opdaterer lastEdited-feltet hver gang entiteten opdateres i databasen.
     @UpdateTimestamp
     private LocalDateTime lastEdited;
 
-    // Corrected method name
+
+
+    //Getters & Setters
+
     public Long getId() {
         return id;
     }
@@ -74,6 +87,7 @@ public class Registration {
     public Registration() {
     }
 
+    // Constructor
     public Registration(Long id, Customer customer, DamageReport damageReport, LocalDateTime created, LocalDateTime lastEdited) {
         this.id = id;
         this.customer = customer;

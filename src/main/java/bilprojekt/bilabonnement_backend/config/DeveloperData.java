@@ -19,30 +19,35 @@ public class DeveloperData implements ApplicationRunner {
     private DamageReportRepository damageReportRepository;
     private CustomerRepository repository;
 
+    //Statisk liste over lejeaftaleoplysninger
     private static List<Customer> CUSTOMERS = Arrays.asList(
             new Customer(1112035090, "Claus Nielsen", "clausnielsen@gmail.dk", "Sjælland", 2999, "Fiat", "500 Dolcevita", "Diesel", 21.8)
-            // Add more customers as needed
     );
 
+    //Statisk liste over skaderapporter
     private static List<DamageReport> reports = Arrays.asList(
             new DamageReport(749.99, "Toyota", "Camry", "Collision", "Front bumper damage", "Moderate")
-            // Add more damage reports as needed
     );
 
-
+    //Constructor for DeveloperData klassen
     public DeveloperData(CustomerRepository repository, DamageReportRepository damageReportRepository) {
         this.repository = repository;
         this.damageReportRepository = damageReportRepository;
     }
 
 
+    // Metoden, der kaldes ved opstart af applikationen
     @Override
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
-        // Ensure that IDs are not explicitly set
+        //Nulstiller ID for at undgå konflikter ved genindlæsning af data
         CUSTOMERS.forEach(customer -> customer.setId(null));
+        //Gemmer lejeaftaler i repository
         repository.saveAll(CUSTOMERS);
+
+        //Nulstiller ID for at undgå konflikter ved genindlæsning af data
         reports.forEach(report -> report.setId(null));
+        //Gemmer skade rapporter i repository
         damageReportRepository.saveAll(reports);
     }
 }

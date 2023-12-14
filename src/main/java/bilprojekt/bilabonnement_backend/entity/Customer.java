@@ -4,14 +4,18 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+//Entity: Dette bruges til at angive, at klassen er en JPA-entity, hvilket betyder, at den repræsenterer en tabel i en database.
 @Entity
 public class Customer {
 
+
+    //ID: Unik identifikation til hver kunde (primary key) genereret af databasen
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, length = 10)
     private Long id;
 
+    //Coluumn: Dette bruges til at specificere egenskaber for en kolonne i databasen, der mapper til et felt i klassen.
     @Column(name = "cpr", nullable = false, length = 10)
     private int cpr;
 
@@ -41,7 +45,6 @@ public class Customer {
 
 
     // Constructors
-
     public Customer(int cpr, String fullName, String email, String region, int price, String brand, String model, String braendstof, double kml) {
         this.cpr = cpr;
         this.fullName = fullName;
@@ -58,6 +61,7 @@ public class Customer {
 
     }
 
+    //Getters & Setters
 
     public Long getId() {
         return id;
